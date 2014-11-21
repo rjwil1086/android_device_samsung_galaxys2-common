@@ -45,8 +45,8 @@ PRODUCT_COPY_FILES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     $(COMMON_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+    $(COMMON_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \

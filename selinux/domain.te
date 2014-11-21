@@ -3,3 +3,6 @@ allow wpa rfkill_device:chr_file rw_file_perms;
 
 ## Firmwares
 allow ueventd { firmware_mfc }:file r_file_perms;
+
+#Fix recovery building
+allow domain {fs_type -contextmount_type}:filesystem relabelto;

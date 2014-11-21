@@ -73,6 +73,7 @@ BOARD_HARDWARE_CLASS := hardware/samsung/cmhw
 # Graphics
 BOARD_EGL_CFG := device/samsung/galaxys2-common/configs/egl.cfg
 USE_OPENGL_RENDERER := true
+COMMON_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH -DWORKAROUND_BUG_10194508
 BOARD_EGL_NEEDS_LEGACY_FB := true
 
 # FIMG Acceleration
@@ -145,11 +146,14 @@ BOARD_SEPOLICY_UNION := \
     device.te \
     drmserver.te \
     ueventd.te \
-    domain.te \
     file.te \
     file_contexts \
     rild.te \
     vold.te
+
+BOARD_SEPOLICY_REPLACE += \
+    domain.te \
+    app.te
 
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxys2-common/recovery/recovery_keys.c
