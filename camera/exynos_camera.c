@@ -1970,10 +1970,10 @@ int exynos_camera_preview_start(struct exynos_camera *exynos_camera)
 	exynos_camera->preview_buffers_count = rc;
 	ALOGD("Found %d preview buffers available!", exynos_camera->preview_buffers_count);
 
-	// fps = exynos_camera->preview_fps;
-	// memset(&streamparm, 0, sizeof(streamparm));
-	// streamparm->parm.capture.timeperframe.numerator = 1;
-	// streamparm->parm.capture.timeperframe.denominator = fps;
+	fps = exynos_camera->preview_fps;
+	memset(&streamparm, 0, sizeof(streamparm));
+	streamparm.parm.capture.timeperframe.numerator = 1;
+	streamparm.parm.capture.timeperframe.denominator = fps;
 
 	rc = exynos_v4l2_s_parm_cap(exynos_camera, 0, &streamparm);
 	if (rc < 0) {
