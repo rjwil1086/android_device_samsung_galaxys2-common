@@ -44,16 +44,13 @@ PRODUCT_COPY_FILES += \
 #    system/bluetooth/data/main.le.conf:system/etc/bluetooth/main.conf
 
 # Wifi
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    $(COMMON_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
-
-PRODUCT_PACKAGES := \
-    libwpa_client \
+PRODUCT_PACKAGES += \
+    dhcpcd.conf \
     hostapd \
     hostapd_default.conf \
-    dhcpcd.conf \
-    wpa_supplicant
+    libwpa_client \
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
@@ -69,8 +66,7 @@ PRODUCT_COPY_FILES += \
 # Packages
 PRODUCT_PACKAGES := \
     com.android.future.usb.accessory \
-    SamsungServiceMode \
-    OmniTorch
+    SamsungServiceMode
 
 # Audio Packages
 PRODUCT_PACKAGES += \
