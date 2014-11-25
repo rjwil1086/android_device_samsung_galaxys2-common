@@ -37,9 +37,6 @@ extern "C" {
 #define CDMA_ALPHA_INFO_BUFFER_LENGTH 64
 #define CDMA_NUMBER_INFO_BUFFER_LENGTH 81
 
-#define MAX_DEBUG_SOCKET_NAME_LENGTH 12
-#define MAX_QEMU_PIPE_NAME_LENGTH  11
-
 typedef void * RIL_Token;
 
 typedef enum {
