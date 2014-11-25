@@ -48,7 +48,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     $(COMMON_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
-PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES := \
     libwpa_client \
     hostapd \
     hostapd_default.conf \
