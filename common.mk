@@ -53,8 +53,7 @@ PRODUCT_PACKAGES := \
     hostapd \
     hostapd_default.conf \
     dhcpcd.conf \
-    wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
