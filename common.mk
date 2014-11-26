@@ -44,6 +44,10 @@ PRODUCT_COPY_FILES += \
 #    system/bluetooth/data/main.le.conf:system/etc/bluetooth/main.conf
 
 # Wifi
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+    $(COMMON_PATH)/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
     hostapd \
@@ -64,7 +68,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/sirfgps.conf:system/etc/sirfgps.conf
 
 # Packages
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
     SamsungServiceMode
 
