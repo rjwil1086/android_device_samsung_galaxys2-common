@@ -3,12 +3,12 @@ import init.gps.rc
 
 on init
     mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
-    mkdir /storage/sdcard0 0700 root root
-
     mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /storage/sdcard1 0700 root root
-
     mkdir /mnt/media_rw/usbdisk0 0700 media_rw media_rw
+
+    mkdir /storage 0775 system system
+    mkdir /storage/sdcard0 0700 root root
+    mkdir /storage/sdcard1 0700 root root
     mkdir /storage/usbdisk0 0700 root root
 
     mkdir /efs 0771 radio system
@@ -19,20 +19,33 @@ on init
     export EXTERNAL_STORAGE /storage/sdcard0
     export SECONDARY_STORAGE /storage/sdcard1
 
+    # For backwards compatibility
+    symlink /storage/sdcard0 /sdcard
+    symlink /storage/sdcard0 /mnt/sdcard
+    symlink /storage/sdcard1 /extSdCard
+    symlink /storage/sdcard1 /mnt/extSdCard
+    symlink /storage/usbdisk0 /usbdisk0
+    symlink /storage/usbdisk0 /mnt/usbdisk0
+
 # Disable CFQ slice idle delay
     write /sys/block/mmcblk0/queue/iosched/slice_idle 0
 
 on fs
     mount_all /fstab.smdk4210
+
     mkdir /efs/bluetooth
     mkdir /efs/wifi
+
     chown radio system /efs/bluetooth
     chown radio system /efs/wifi
     chmod 0775 /efs/bluetooth
     chmod 0775 /efs/wifi
+
     mkdir /data/misc/vpn/profiles 0770 system system
     mkdir /data/misc/radio 0775 radio system
+    
     chmod 0770 /data/misc/wifi
+
     setprop ro.crypto.fuse_sdcard true
 
 # FUSE sdcard daemon for rich permissions (runs as media_rw)
