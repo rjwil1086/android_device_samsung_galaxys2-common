@@ -18,7 +18,7 @@ COMMON_PATH := device/samsung/galaxys2-common
 DEVICE_PACKAGE_OVERLAYS := $(COMMON_PATH)/overlay
 
 # Rootdir
-PRODUCT_COPY_FILES := \
+PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/fstab.smdk4210:root/fstab.smdk4210 \
     $(COMMON_PATH)/rootdir/twrp.fstab:recovery/root/etc/twrp.fstab \
     $(COMMON_PATH)/rootdir/lpm.rc:root/lpm.rc \
