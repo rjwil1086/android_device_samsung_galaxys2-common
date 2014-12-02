@@ -32,7 +32,7 @@
 
     <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
          autodetected from the Configuration. -->
-    <bool name="config_showNavigationBar">false</bool>
+    <bool name="config_showNavigationBar">true</bool>
 
     <!-- XXXXX NOTE THE FOLLOWING RESOURCES USE THE WRONG NAMING CONVENTION.
          Please don't copy them, copy anything else. -->
@@ -156,11 +156,11 @@
     <bool name="config_disableMenuKeyInLockScreen">true</bool>
 
     <!-- Workaround for devices with broken keyboards -->
-    <!--bool name="config_forceDisableHardwareKeyboard">true</bool-->
+<!--    <bool name="config_forceDisableHardwareKeyboard">true</bool> -->
 
     <!-- Boolean to enable stk functionality on Samsung phones -->
-    <!--bool name="config_samsung_stk">true</bool-->
+<!--    <bool name="config_samsung_stk">true</bool> -->
 
     <!-- Device supports LED flashlight -->
-    <!--bool name="config_enableTorch">true</bool-->
+  <!--  <bool name="config_enableTorch">true</bool> -->
 </resources>
