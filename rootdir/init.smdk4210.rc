@@ -172,7 +172,7 @@ on post-fs-data
 
 # Permissions for gpio_keys.
     chown system radio /sys/class/sec/sec_key/wakeup_keys 
-    write /sys/class/sec/sec_key/wakeup_keys  102,116
+    write /sys/class/sec/sec_key/wakeup_keys  102,114,115,116
 
 # Add permission for ATM. 2010.03.20
     chown system radio /sys/devices/platform/i2c-gpio.9/i2c-9/9-0036/power_supply/fuelgauge/fg_read_soc
