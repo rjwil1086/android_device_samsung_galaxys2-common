@@ -142,18 +142,17 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/l
 BOARD_SEPOLICY_DIRS := \
     device/samsung/galaxys2-common/selinux
 
-BOARD_SEPOLICY_UNION := \
+BOARD_SEPOLICY_UNION += \
     device.te \
+    domain.te \
     drmserver.te \
-    ueventd.te \
     file.te \
     file_contexts \
+    init.te \
+    mediaserver.te \
     rild.te \
+    ueventd.te \
     vold.te
-
-BOARD_SEPOLICY_REPLACE += \
-    domain.te \
-    app.te
 
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxys2-common/recovery/recovery_keys.c

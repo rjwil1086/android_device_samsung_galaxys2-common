@@ -1,5 +1,5 @@
-import init.smdk4210.usb.rc
-import init.gps.rc
+import /init.smdk4210.usb.rc
+import /init.gps.rc
 
 on init
     export EXTERNAL_STORAGE /storage/sdcard0
@@ -31,7 +31,7 @@ on init
     write /sys/block/mmcblk0/queue/iosched/slice_idle 0
 
 on fs
-    mount_all /fstab.smdk4210
+    mount_all fstab.smdk4210
 
     mkdir /efs/bluetooth
     mkdir /efs/wifi
