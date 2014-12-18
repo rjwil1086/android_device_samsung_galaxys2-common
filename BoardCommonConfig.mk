@@ -38,6 +38,7 @@ COMMON_GLOBAL_CFLAGS += -DEXYNOS4210_ENHANCEMENTS
 COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
 COMMON_GLOBAL_CFLAGS += -DWORKAROUND_BUG_10194508
 COMMON_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH
+COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
 endif
 
 BOARD_VENDOR := samsung
@@ -86,6 +87,14 @@ ENABLE_WEBGL := true
 # HWComposer
 BOARD_USES_HWCOMPOSER := true
 BOARD_USE_SYSFS_VSYNC_NOTIFICATION := true
+
+# Include an expanded selection of fonts
+EXTENDED_FONT_FOOTPRINT := true
+
+# Logging
+TARGET_USES_LOGD := false
+
+BOARD_USES_LEGACY_MMAP := true
 
 # OMX
 BOARD_USE_SAMSUNG_COLORFORMAT := true
@@ -144,15 +153,16 @@ BOARD_SEPOLICY_DIRS := \
 
 BOARD_SEPOLICY_UNION += \
     device.te \
-    domain.te \
     drmserver.te \
     file.te \
     file_contexts \
-    init.te \
-    mediaserver.te \
     rild.te \
     ueventd.te \
     vold.te
+
+BOARD_SEPOLICY_REPLACE += \
+    app.te \
+    domain.te
 
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxys2-common/recovery/recovery_keys.c
