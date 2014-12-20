@@ -35,7 +35,7 @@ EXTENDED_FONT_FOOTPRINT := true
 
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-
+EXYNOS4_ENHANCEMENTS := true
 ifdef EXYNOS4210_ENHANCEMENTS
 COMMON_GLOBAL_CFLAGS += -DEXYNOS4_ENHANCEMENTS
 COMMON_GLOBAL_CFLAGS += -DEXYNOS4210_ENHANCEMENTS
@@ -61,10 +61,18 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0 androidboot.selinux=permissive
 
+# Enable dex-preoptimization to speed up first boot sequence
+ifeq ($(HOST_OS),linux)
+	ifeq ($(TARGET_BUILD_VARIANT),userdebug)
+		WITH_DEXPREOPT := true
+	endif
+endif
+DONT_DEXPREOPT_PREBUILTS := true
+
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 536870912
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 805306368
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
 BOARD_FLASH_BLOCK_SIZE := 4096
 
@@ -101,7 +109,8 @@ BOARD_NONBLOCK_MODE_PROCESS := true
 BOARD_USE_STOREMETADATA := true
 BOARD_USE_METADATABUFFERTYPE := true
 BOARD_USES_MFC_FPS := true
-
+BOARD_USE_S3D_SUPPORT := true
+BOARD_USE_CSC_FIMC := false
 # Audio
 BOARD_USE_TINYALSA_AUDIO := true
 BOARD_USE_YAMAHA_MC1N2_AUDIO := true
@@ -148,18 +157,36 @@ BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/lun%d/file"
 
 # Selinux
-# BOARD_SEPOLICY_DIRS += \
-#    device/samsung/galaxys2-common/selinux
+BOARD_SEPOLICY_DIRS += \
+	device/samsung/galaxys2-common/selinux
 
-#BOARD_SEPOLICY_UNION += \
-#    device.te \
-#    drmserver.te \
-#    ueventd.te \
-#    domain.te    
-#    file.te \
-#    file_contexts \
-#    rild.te \
-#    vold.te
+BOARD_SEPOLICY_UNION += \
+	bluetooth.te \
+	radio.te \
+	file_contexts \
+	te_macros \
+	device.te \
+	dhcp.te \
+	domain.te \
+	file.te \
+	init.te \
+	kickstart.te \
+	mediaserver.te \
+	netmgrd.te \
+	qmiproxy.te \
+	qmuxd.te \
+	rild.te \
+	secril.te \
+	servicemanager.te \
+	sysinit.te \
+	system.te \
+	system_server.te \
+	time_daemon.te \
+	ueventd.te \
+	vold.te \
+	wpa.te \
+	wpa_supplicant.te \
+	zygote.te
 
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxys2-common/recovery/recovery_keys.c

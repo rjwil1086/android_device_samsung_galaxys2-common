@@ -18,9 +18,8 @@ COMMON_PATH := device/samsung/galaxys2-common
 DEVICE_PACKAGE_OVERLAYS := $(COMMON_PATH)/overlay
 
 # Rootdir
-PRODUCT_COPY_FILES := \
+PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/fstab.smdk4210:root/fstab.smdk4210 \
-    $(COMMON_PATH)/rootdir/twrp.fstab:recovery/root/etc/twrp.fstab \
     $(COMMON_PATH)/rootdir/lpm.rc:root/lpm.rc \
     $(COMMON_PATH)/rootdir/init.smdk4210.usb.rc:root/init.smdk4210.usb.rc \
     $(COMMON_PATH)/rootdir/init.smdk4210.rc:root/init.smdk4210.rc \
@@ -56,7 +55,7 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/sirfgps.conf:system/etc/sirfgps.conf
 
 # Packages
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
     SamsungServiceMode \
     Torch
@@ -75,15 +74,11 @@ PRODUCT_PACKAGES += \
     camera.smdk4210 \
     dhcpcd.conf \
     gralloc.exynos4 \
-    hostapd \
-    hostapd_default.conf \
     hwcomposer.exynos4 \
-    libwpa_client \
     libnetcmdiface \
     lights.exynos4 \
     libhwconverter \
     libs5pjpeg \
-    wpa_supplicant \
     libfimg \
     libsecion
 
@@ -132,8 +127,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=SamsungExynos4RIL \
-	ro.telephony.ril.config=fakeiccid \
-    mobiledata.interfaces=pdp0,wlan0,gprs,ppp0,rmnet0,rmnet1 \
+    ro.telephony.ril.config=fakeiccid \
+    mobiledata.interfaces=pdp0,gprs,ppp0,rmnet0,rmnet1 \
     ro.telephony.call_ring.multiple=false \
     ro.telephony.call_ring.delay=3000
 
@@ -154,6 +149,14 @@ PRODUCT_PACKAGES += \
     PhaseBeam \
     VisualizationWallpapers \
     librs_jni
+
+# Wifi
+PRODUCT_PACKAGES += \
+    libwpa_client \
+    hostapd \
+    hostapd_default.conf \
+    dhcpcd.conf \
+    wpa_supplicant
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
