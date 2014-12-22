@@ -55,19 +55,13 @@ TARGET_NO_SEPARATE_RECOVERY := true
 TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
 
+TARGET_NEEDS_NON_PIE_SUPPORT := true
+
 BOARD_NAND_PAGE_SIZE := 4096
 BOARD_NAND_SPARE_SIZE := 128
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0 androidboot.selinux=permissive
-
-# Enable dex-preoptimization to speed up first boot sequence
-ifeq ($(HOST_OS),linux)
-	ifeq ($(TARGET_BUILD_VARIANT),userdebug)
-		WITH_DEXPREOPT := true
-	endif
-endif
-DONT_DEXPREOPT_PREBUILTS := true
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
