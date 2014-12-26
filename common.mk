@@ -20,7 +20,6 @@ DEVICE_PACKAGE_OVERLAYS := $(COMMON_PATH)/overlay
 # Rootdir
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/fstab.smdk4210:root/fstab.smdk4210 \
-    $(COMMON_PATH)/rootdir/twrp.fstab:recovery/root/etc/twrp.fstab \
     $(COMMON_PATH)/rootdir/lpm.rc:root/lpm.rc \
     $(COMMON_PATH)/rootdir/init.smdk4210.usb.rc:root/init.smdk4210.usb.rc \
     $(COMMON_PATH)/rootdir/init.smdk4210.rc:root/init.smdk4210.rc \
@@ -28,7 +27,8 @@ PRODUCT_COPY_FILES += \
 
 # Recovery rootdir
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/init.recovery.smdk4210.rc:root/init.recovery.smdk4210.rc
+    $(COMMON_PATH)/rootdir/init.recovery.smdk4210.rc:root/init.recovery.smdk4210.rc \
+    $(COMMON_PATH)/rootdir/twrp.fstab:root/etc/twrp.fstab
 
 # Netflix hack
 PRODUCT_COPY_FILES += \
