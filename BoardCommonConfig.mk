@@ -18,7 +18,8 @@
 # This variable is set first, so it can be overridden
 # by BoardConfigVendor.mk
 BOARD_USES_GENERIC_AUDIO := false
-
+BOARD_USE_SAMSUNG_COLORFORMAT := true
+USE_SAMSUNG_COLORFORMAT := true
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
@@ -29,16 +30,17 @@ TARGET_CPU_VARIANT := cortex-a9
 ARCH_ARM_HAVE_NEON := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 EXYNOS4210_ENHANCEMENTS := true
+# Include an expanded selection of fonts
+EXTENDED_FONT_FOOTPRINT := true
+
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-
+EXYNOS4_ENHANCEMENTS := true
 ifdef EXYNOS4210_ENHANCEMENTS
 COMMON_GLOBAL_CFLAGS += -DEXYNOS4_ENHANCEMENTS
 COMMON_GLOBAL_CFLAGS += -DEXYNOS4210_ENHANCEMENTS
 COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
-COMMON_GLOBAL_CFLAGS += -DWORKAROUND_BUG_10194508
 COMMON_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH
-COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL
 endif
 
 BOARD_VENDOR := samsung
@@ -48,20 +50,23 @@ TARGET_BOOTLOADER_BOARD_NAME := smdk4210
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
+TARGET_NO_SEPARATE_RECOVERY := true
 
 TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
+
+TARGET_NEEDS_NON_PIE_SUPPORT := true
 
 BOARD_NAND_PAGE_SIZE := 4096
 BOARD_NAND_SPARE_SIZE := 128
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE := 0x40000000
-BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0
+BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0 androidboot.selinux=permissive
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 536870912
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 805306368
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
 BOARD_FLASH_BLOCK_SIZE := 4096
 
@@ -75,11 +80,15 @@ BOARD_HARDWARE_CLASS := hardware/samsung/cmhw
 # Graphics
 BOARD_EGL_CFG := device/samsung/galaxys2-common/configs/egl.cfg
 USE_OPENGL_RENDERER := true
+COMMON_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH -DWORKAROUND_BUG_10194508
 BOARD_EGL_NEEDS_LEGACY_FB := true
 
 # FIMG Acceleration
 BOARD_USES_FIMGAPI := true
 BOARD_USES_SKIA_FIMGAPI := true
+
+# Logging
+TARGET_USES_LOGD := false
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
@@ -102,7 +111,8 @@ BOARD_NONBLOCK_MODE_PROCESS := true
 BOARD_USE_STOREMETADATA := true
 BOARD_USE_METADATABUFFERTYPE := true
 BOARD_USES_MFC_FPS := true
-
+BOARD_USE_S3D_SUPPORT := true
+BOARD_USE_CSC_FIMC := false
 # Audio
 BOARD_USE_TINYALSA_AUDIO := true
 BOARD_USE_YAMAHA_MC1N2_AUDIO := true
@@ -110,6 +120,7 @@ BOARD_USE_YAMAHA_MC1N2_AUDIO := true
 # RIL
 BOARD_PROVIDES_LIBRIL := true
 BOARD_MODEM_TYPE := xmm6260
+BOARD_NEEDS_SEC_RIL_WORKAROUND := true
 
 # Camera
 BOARD_USES_PROPRIETARY_LIBFIMC := true
@@ -148,21 +159,36 @@ BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/lun%d/file"
 
 # Selinux
-BOARD_SEPOLICY_DIRS := \
-    device/samsung/galaxys2-common/selinux
+BOARD_SEPOLICY_DIRS += \
+	device/samsung/galaxys2-common/selinux
 
 BOARD_SEPOLICY_UNION += \
-    device.te \
-    drmserver.te \
-    file.te \
-    file_contexts \
-    rild.te \
-    ueventd.te \
-    vold.te
-
-BOARD_SEPOLICY_REPLACE += \
-    app.te \
-    domain.te
+	bluetooth.te \
+	radio.te \
+	file_contexts \
+	te_macros \
+	device.te \
+	dhcp.te \
+	domain.te \
+	file.te \
+	init.te \
+	kickstart.te \
+	mediaserver.te \
+	netmgrd.te \
+	qmiproxy.te \
+	qmuxd.te \
+	rild.te \
+	secril.te \
+	servicemanager.te \
+	sysinit.te \
+	system.te \
+	system_server.te \
+	time_daemon.te \
+	ueventd.te \
+	vold.te \
+	wpa.te \
+	wpa_supplicant.te \
+	zygote.te
 
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxys2-common/recovery/recovery_keys.c
@@ -172,9 +198,11 @@ BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_SUPPRESS_EMMC_WIPE := true
+BOARD_RECOVERY_SWIPE := true
 TARGET_RECOVERY_FSTAB := device/samsung/galaxys2-common/rootdir/fstab.smdk4210
 RECOVERY_FSTAB_VERSION := 2
 
+BOARD_RIL_CLASS := ../../../hardware/samsung/ril
 # Device specific headers
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/galaxys2-common/include
 
@@ -184,6 +212,9 @@ BOARD_BATTERY_DEVICE_NAME := "battery"
 BOARD_CHARGER_RES := device/samsung/galaxys2-common/res/charger
 
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/galaxys2-common/shbootimg.mk
+BOARD_USES_LEGACY_MMAP := true
+# Override healthd HAL
+BOARD_HAL_STATIC_LIBRARIES := libhealthd.exynos4
 
 # Override healthd HAL
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.exynos4

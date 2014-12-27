@@ -153,7 +153,7 @@ struct exynos_camera_preset exynos_camera_presets_galaxys2[] = {
 			.full_video_snap_supported = 0,
 
 			.recording_size = "640x480",
-			.recording_size_values = "640x480",
+			.recording_size_values = "720x480,640x480",
 			.recording_format = "yuv420sp",
 
 			.focus_mode = "fixed",
@@ -2641,9 +2641,9 @@ int exynos_camera_set_parameters(struct camera_device *dev,
 	}
 
 	char *recording_hint_string = exynos_param_string_get(exynos_camera, "recording-hint");
-	int cam_mode = 0; // photo 	2644
+	int cam_mode = 0; // photo
 	if (recording_hint_string != NULL && strcmp(recording_hint_string, "true") == 0) {
-		cam_mode = 1; // video 	2646
+		cam_mode = 1; // video
 	}
 
 	exynos_param_int_set(exynos_camera, "cam_mode", cam_mode);

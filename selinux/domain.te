@@ -1,3 +1,6 @@
-allow wpa rfkill_device:chr_file rw_file_perms;
-allow ueventd { firmware_mfc }:file r_file_perms;
-allow domain {fs_type -contextmount_type}:filesystem relabelto;
+## /dev/mali, /dev/ump
+allow domain mali_device:chr_file rw_file_perms;
+
+userdebug_or_eng(`
+			  allow domain diag_device:chr_file rw_file_perms;
+') 
