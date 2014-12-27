@@ -80,7 +80,6 @@ PRODUCT_PACKAGES += \
 # HAL
 PRODUCT_PACKAGES += \
     camera.smdk4210 \
-    dhcpcd.conf \
     gralloc.exynos4 \
     hwcomposer.exynos4 \
     libnetcmdiface \
@@ -157,14 +156,6 @@ PRODUCT_PACKAGES += \
     PhaseBeam \
     VisualizationWallpapers \
     librs_jni
-
-# Wifi
-PRODUCT_PACKAGES += \
-    libwpa_client \
-    hostapd \
-    hostapd_default.conf \
-    dhcpcd.conf \
-    wpa_supplicant
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
